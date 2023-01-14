@@ -10,7 +10,10 @@ interface Props {
 
 const IconButton: FC<Props> = ({ icon, color, onPress }) => {
   return (
-    <Pressable style={({ pressed }) => pressed && styles.pressed}>
+    <Pressable
+      style={({ pressed }) => pressed && styles.pressed}
+      onPress={onPress}
+    >
       <Ionicons name={icon} size={24} color={color} />
     </Pressable>
   )

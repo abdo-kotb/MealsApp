@@ -1,4 +1,4 @@
-import { FC, useLayoutEffect } from 'react'
+import { FC, useContext, useLayoutEffect } from 'react'
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import { ParamListBase, RouteProp } from '@react-navigation/native'
 import { MEALS } from '../data/data'
@@ -7,6 +7,7 @@ import SubTitle from '../components/mealDetails/SubTitle'
 import List from '../components/mealDetails/List'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import IconButton from '../components/Icon.Button'
+import { FavoritesContext } from '../store/context/FavouritesContext'
 
 interface Props {
   route: RouteProp<ParamListBase>
@@ -14,15 +15,30 @@ interface Props {
 }
 
 const MealDetailScreen: FC<Props> = ({ route, navigation }) => {
+  const favoriteMealsCtx = useContext(FavoritesContext)
+
   const mealId = (route.params as { mealId: string }).mealId
 
   const selectedMeal = MEALS.find(meal => meal.id === mealId)
 
+  const isMealFavorite = favoriteMealsCtx.ids.includes(mealId)
+
+  const toggleFavoriteStatusHandler = () => {
+    if (isMealFavorite) favoriteMealsCtx.removeFavorite(mealId)
+    else favoriteMealsCtx.addFavorite(mealId)
+  }
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => <IconButton icon="star" color="#ffffff" />,
+      headerRight: () => (
+        <IconButton
+          icon={isMealFavorite ? 'star' : 'star-outline'}
+          color="#ffffff"
+          onPress={toggleFavoriteStatusHandler}
+        />
+      ),
     })
-  })
+  }, [isMealFavorite])
 
   if (!selectedMeal) return null
 
