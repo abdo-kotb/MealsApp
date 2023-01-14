@@ -11,10 +11,11 @@ const favoritesSlice = createSlice<Slice, SliceCaseReducers<Slice>>({
   },
   reducers: {
     addFavorite: (state, { payload }) => {
-      state.ids.push(payload.id)
+      state.ids.push(payload)
     },
     removeFavorite: (state, { payload }) => {
-      state.ids.splice(state.ids.indexOf(payload.id, 1))
+      console.log(state, payload)
+      state.ids.splice(state.ids.indexOf(payload), 1)
     },
   },
 })
