@@ -1,10 +1,9 @@
+import { FC, useLayoutEffect } from 'react'
 import { ParamListBase, RouteProp } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { FC, useLayoutEffect } from 'react'
-import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native'
-import MealItem from '../components/Meal.item'
 import { CATEGORIES, MEALS } from '../data/data'
-import Meal from '../models/meal'
+
+import MealList from '../components/mealsList/MealList'
 
 interface Props {
   route: RouteProp<ParamListBase>
@@ -26,26 +25,7 @@ const MealsOverviewScreen: FC<Props> = ({ route, navigation }) => {
     })
   }, [catId])
 
-  const renderMealItem: ListRenderItem<Meal> = ({ item }) => {
-    return <MealItem meal={item} imageUrl={item.imageUrl} />
-  }
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={displayedMeals}
-        keyExtractor={(item: Meal) => item.id}
-        renderItem={renderMealItem}
-      />
-    </View>
-  )
+  return <MealList items={displayedMeals} />
 }
 
 export default MealsOverviewScreen
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-})

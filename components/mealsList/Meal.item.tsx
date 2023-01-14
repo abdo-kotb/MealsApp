@@ -7,10 +7,10 @@ import {
   Platform,
 } from 'react-native'
 import React, { FC } from 'react'
-import Meal from '../models/meal'
+import Meal from '../../models/meal'
 import { ParamListBase, useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import MealDetails from './MealDetails'
+import MealDetails from '../MealDetails'
 
 interface Props {
   meal: Meal
