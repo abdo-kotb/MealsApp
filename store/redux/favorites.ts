@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, SliceCaseReducers } from '@reduxjs/toolkit'
+import { createSlice, SliceCaseReducers } from '@reduxjs/toolkit'
 
 interface Slice {
   ids: string[]
